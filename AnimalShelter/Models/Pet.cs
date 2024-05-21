@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AnimalShelterWPF.Models;
+﻿namespace AnimalShelterWPF.Models;
 
 public partial class Pet
 {
@@ -11,11 +8,13 @@ public partial class Pet
 
     public string? Race { get; set; }
 
-    public int? Age { get; set; }
+    public string? Age { get; set; }
 
     public char? Genre { get; set; }
 
-    public TimeOnly? DateEntry { get; set; }
+    public string? DateEntry { get; set; }
+
+    public string? Description { get; set; }
 
     public string? MedicalHistory { get; set; }
 

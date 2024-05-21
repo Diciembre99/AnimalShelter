@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Dashboard\dogAvatar.png" />
     <None Remove="Views\Home\background.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Accelergreat.EntityFramework.PostgreSql" Version="3.0.0-beta.2" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.0.1-ci615" />
+    <PackageReference Include="MaterialDesignColors" Version="3.1.0-ci626" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.1-ci626" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="3.1.0-ci626" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.3.24172.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-preview.3.24172.4">
       <PrivateAssets>all</PrivateAssets>
@@ -24,14 +27,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Views\Home\background.jpg" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0-preview.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Tools\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Dashboard\dogAvatar.png" />
+    <Resource Include="Views\Home\background.jpg" />
   </ItemGroup>
 
 </Project>

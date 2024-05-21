@@ -1,11 +1,6 @@
 ﻿using AnimalShelterWPF.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AnimalShelter.Controllers.Data
 {
@@ -295,6 +290,6 @@ namespace AnimalShelter.Controllers.Data
             });
             OnModelCreatingPartial(modelBuilder);
         }
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);   
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

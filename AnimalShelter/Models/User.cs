@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AnimalShelterWPF.Models;
 
 public partial class User
 {
+    [Key]
     public int IdUser { get; set; }
-
+    [Required]
     public string Name { get; set; } = null!;
-
+    [Required]
     public string Dni { get; set; } = null!;
 
     public string? Telephone { get; set; }
