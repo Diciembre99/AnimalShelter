@@ -16,5 +16,11 @@ public partial class Item
 
     public char? Status { get; set; }
 
+    public float? Price { get; set; }
+
+    public string? Description { get; set; }
+
+    public string? imgItem { get; set; }
+
     public virtual Shelter? IdShelterNavigation { get; set; }
 }

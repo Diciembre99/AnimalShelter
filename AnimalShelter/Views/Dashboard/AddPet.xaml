@@ -42,7 +42,7 @@
                                   Content="CANCEL"
                                   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                   Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                                  ToolTip="Resource name: MaterialDesignRaisedSecondaryDarkButton" Background="#FF380000" Click="btnCancel_Click" />
+                                  ToolTip="Resource name: MaterialDesignRaisedSecondaryDarkButton" Background="#FF5D0202" Click="btnCancel_Click" Foreground="White" />
                             </DockPanel>
                         </StackPanel>
                     </materialDesign:Card>

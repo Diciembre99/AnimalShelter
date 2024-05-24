@@ -37,7 +37,6 @@ namespace AnimalShelter.Views.Dashboard
                 MessageBox.Show("There are validation errors.");
                 return;
             }
-            MessageBox.Show("Save successful!");
             char genero;
             if (rbMale.IsChecked.Value)
             {
@@ -63,6 +62,7 @@ namespace AnimalShelter.Views.Dashboard
                 };
                 context.Pets.Add(pet);
                 context.SaveChanges();
+            MessageBox.Show("Save successful!");
             }
         }
 

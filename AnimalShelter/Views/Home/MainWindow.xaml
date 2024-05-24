@@ -93,7 +93,7 @@
 
                                             </TabItem.Header>
                                         </TabItem>
-                                        <TabItem Width="150" Tag="RecentItem" Background="#E5FFFFFF">
+                                        <TabItem Width="150" Tag="InventaryItem" Background="#E5FFFFFF">
                                             <TabItem.Header>
                                                 <DockPanel>
                                                     <materialDesign:PackIcon

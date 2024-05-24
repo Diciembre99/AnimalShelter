@@ -45,6 +45,11 @@ namespace AnimalShelter
                         RenderPage.Children.Clear();
                         RenderPage.Children.Add(new AddPet());
                         break;
+                    case "InventaryItem":
+                        RenderPage.Children.Clear();
+                        RenderPage.Children.Add(new Inventary());
+                        txtTitle.Text="Inventary";
+                        break;
                 }
             }
         }
