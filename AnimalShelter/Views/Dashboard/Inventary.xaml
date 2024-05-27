@@ -6,11 +6,15 @@
              xmlns:local="clr-namespace:AnimalShelter.Views.Dashboard"
              mc:Ignorable="d" 
              xmlns:controls="clr-namespace:AnimalShelter.Controllers"
+             xmlns:tools="clr-namespace:AnimalShelter.Tools"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450" d:DesignWidth="1200">
     <UserControl.DataContext>
         <controls:AddPetViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <tools:Base64ToImageConverter x:Key="Base64ToImageConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid x:Name="gridItem">
             <materialDesign:Card UniformCornerRadius="20" Margin="20">
@@ -76,7 +80,7 @@
                                                             <materialDesign:ColorZone
                                         VerticalAlignment="Stretch"
                                         Mode="PrimaryLight">
-                                                                <Image Source="dogAvatar.png" Width="100" Height="100"/>
+                                                                <Image Source="{Binding ImgItem, Converter={StaticResource Base64ToImageConverter}}" Width="100" Height="100" Cursor=""/>
                                                             </materialDesign:ColorZone>
                                                             <StackPanel
                                         Grid.Row="1"

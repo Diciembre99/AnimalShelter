@@ -95,6 +95,13 @@ namespace AnimalShelterWPF.ViewModels
             }
         }
 
+        private string imgItem;
+        public string ImagItem
+        {
+            get => imgItem;
+            set => SetProperty(ref imgItem, value);
+        }
+
         private ICollectionView _filteredItems;
         public ICollectionView FilteredItems => _filteredItems;
 
