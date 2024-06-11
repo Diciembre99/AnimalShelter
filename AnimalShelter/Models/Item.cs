@@ -1,4 +1,7 @@
-﻿namespace AnimalShelterWPF.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace AnimalShelterWPF.Models;
 
 public partial class Item
 {
@@ -16,11 +19,11 @@ public partial class Item
 
     public char? Status { get; set; }
 
-    public float? Price { get; set; }
-
     public string? Description { get; set; }
 
-    public string? imgItem { get; set; }
+    public float? Price { get; set; }
+
+    public string? ImgItem { get; set; }
 
     public virtual Shelter? IdShelterNavigation { get; set; }
 }

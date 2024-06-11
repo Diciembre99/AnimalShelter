@@ -31,11 +31,12 @@ CREATE TABLE IF NOT EXISTS public.adoption
 CREATE TABLE IF NOT EXISTS public.appointment
 (
     id_appoitment integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    name character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    date time without time zone,
+    name character varying(20) COLLATE pg_catalog."default",
+    date text COLLATE pg_catalog."default",
     description text COLLATE pg_catalog."default",
     id_pet integer NOT NULL,
     veterinary character varying COLLATE pg_catalog."default",
+    "Time" text COLLATE pg_catalog."default",
     CONSTRAINT appointment_pkey PRIMARY KEY (id_appoitment)
 );
 
@@ -45,7 +46,7 @@ CREATE TABLE IF NOT EXISTS public.donation
     type_donation character varying(20) COLLATE pg_catalog."default",
     quantity money,
     donor character varying(20) COLLATE pg_catalog."default",
-    date_donation date NOT NULL,
+    date_donation text COLLATE pg_catalog."default",
     id_shelter integer NOT NULL,
     CONSTRAINT donation_pkey PRIMARY KEY (id_donation)
 );
@@ -59,6 +60,9 @@ CREATE TABLE IF NOT EXISTS public.items
     animal_type character varying(20) COLLATE pg_catalog."default",
     id_shelter integer,
     status character(1) COLLATE pg_catalog."default",
+    "Description" text COLLATE pg_catalog."default",
+    "Price" real,
+    "imgItem" text COLLATE pg_catalog."default",
     CONSTRAINT items_pkey PRIMARY KEY (id_item)
 );
 
@@ -81,7 +85,14 @@ CREATE TABLE IF NOT EXISTS public.pet
     medical_history text COLLATE pg_catalog."default",
     status character(1) COLLATE pg_catalog."default",
     id_shelter integer,
-    "Description" text COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    color text COLLATE pg_catalog."default",
+    esterilization character(1) COLLATE pg_catalog."default",
+    hair text COLLATE pg_catalog."default",
+    "ImgItem" text COLLATE pg_catalog."default",
+    numchip text COLLATE pg_catalog."default",
+    size text COLLATE pg_catalog."default",
+    species text COLLATE pg_catalog."default",
     CONSTRAINT pet_pkey PRIMARY KEY (id_pet)
 );
 

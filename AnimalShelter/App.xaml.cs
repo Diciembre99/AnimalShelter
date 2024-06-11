@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿
+using System.Windows;
 
 namespace AnimalShelter
 {
@@ -7,6 +8,7 @@ namespace AnimalShelter
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }

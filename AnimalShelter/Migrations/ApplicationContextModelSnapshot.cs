@@ -60,8 +60,8 @@ namespace AnimalShelter.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("IdAppoitment"));
 
-                    b.Property<TimeOnly?>("Date")
-                        .HasColumnType("time without time zone")
+                    b.Property<string>("Date")
+                        .HasColumnType("text")
                         .HasColumnName("date");
 
                     b.Property<string>("Description")
@@ -73,10 +73,12 @@ namespace AnimalShelter.Migrations
                         .HasColumnName("id_pet");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
                         .HasColumnName("name");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("text");
 
                     b.Property<string>("Veterinary")
                         .HasColumnType("character varying")
@@ -99,8 +101,8 @@ namespace AnimalShelter.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("IdDonation"));
 
-                    b.Property<DateOnly>("DateDonation")
-                        .HasColumnType("date")
+                    b.Property<string>("DateDonation")
+                        .HasColumnType("text")
                         .HasColumnName("date_donation");
 
                     b.Property<string>("Donor")
@@ -222,6 +224,9 @@ namespace AnimalShelter.Migrations
                         .HasColumnType("text")
                         .HasColumnName("age");
 
+                    b.Property<string>("Color")
+                        .HasColumnType("text");
+
                     b.Property<string>("DateEntry")
                         .HasColumnType("text")
                         .HasColumnName("date_entry");
@@ -229,14 +234,23 @@ namespace AnimalShelter.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<char?>("Esterilization")
+                        .HasColumnType("character(1)");
+
                     b.Property<char?>("Genre")
                         .HasMaxLength(1)
                         .HasColumnType("character(1)")
                         .HasColumnName("genre");
 
+                    b.Property<string>("Hair")
+                        .HasColumnType("text");
+
                     b.Property<int?>("IdShelter")
                         .HasColumnType("integer")
                         .HasColumnName("id_shelter");
+
+                    b.Property<string>("ImgItem")
+                        .HasColumnType("text");
 
                     b.Property<string>("MedicalHistory")
                         .HasColumnType("text")
@@ -247,10 +261,19 @@ namespace AnimalShelter.Migrations
                         .HasColumnType("character varying(20)")
                         .HasColumnName("name");
 
+                    b.Property<string>("NumChip")
+                        .HasColumnType("text");
+
                     b.Property<string>("Race")
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
                         .HasColumnName("race");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Species")
+                        .HasColumnType("text");
 
                     b.Property<char?>("Status")
                         .HasColumnType("char")

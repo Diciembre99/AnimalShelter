@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="AnimalShelter.Views.Dashboard.UserManage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:control="clr-namespace:AnimalShelterWPF.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:tools="clr-namespace:AnimalShelter.Tools"
+             mc:Ignorable="d"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             d:DesignHeight="450" d:DesignWidth="1100">
+    <UserControl.DataContext>
+        <control:AppointmentViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <tools:TimeConverter x:Key="TimeConverter"/>
+    </UserControl.Resources>
+    <materialDesign:Card  Background="Black">
+
+        <Grid  Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+            <DataGrid
+                  materialDesign:DataGridAssist.SelectedCellBorderBrush="Crimson"
+                  ItemsSource="{Binding Appointments}" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <materialDesign:DataGridTextColumn Header="Title" Binding="{Binding Name}"/>
+                    <materialDesign:DataGridTextColumn Header="Pet" Binding="{Binding IdPetNavigation.Name}"/>
+                    <materialDesign:DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                    <materialDesign:DataGridTextColumn Header="Time" Binding="{Binding Time, Converter={StaticResource TimeConverter}}"/>
+                    <materialDesign:DataGridTextColumn Header="Veterinary" Binding="{Binding Veterinary}"/>
+                    <materialDesign:DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+                
+            </Grid>
+            <Grid Grid.Row="1">
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

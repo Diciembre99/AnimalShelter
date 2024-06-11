@@ -1,8 +1,11 @@
 ﻿using AnimalShelter.Controllers;
 using AnimalShelter.Controllers.Data;
 using AnimalShelterWPF.Models;
+using Microsoft.Win32;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,10 +34,20 @@ namespace AnimalShelter.Views.Dashboard
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            var notificationManager = new NotificationManager();
             txtName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            if (Validation.GetHasError(txtName) || Validation.GetHasError(txtRace) || Validation.GetHasError(txtAge))
+            if (Validation.GetHasError(txtName) || Validation.GetHasError(txtRace) || Validation.GetHasError(dtAge) || 
+                Validation.GetHasError(dtDate) || Validation.GetHasError(txtSpecies) || Validation.GetHasError(txtNumChip)||
+                Validation.GetHasError(txtSize))
             {
-                MessageBox.Show("There are validation errors.");
+                notificationManager.Show(new NotificationContent
+                {
+                    Title = "Error",
+                    Message = "Error al completar los campos",
+                    Type = NotificationType.Error,
+
+
+                });
                 return;
             }
             char genero;
@@ -46,23 +59,50 @@ namespace AnimalShelter.Views.Dashboard
             {
                 genero = 'm';
             }
+            
+
+            char adopter;
+            if (checkEsterilization.IsChecked.Value)
+            {
+                adopter = 't' ;
+            }
+            else
+            {
+                adopter = 'f';
+            }
+      
             DateTime? selectedDate = dtDate.SelectedDate;
             string dateString = selectedDate.Value.ToShortDateString();
+            BitmapSource bitmapSource = (BitmapSource)imgItem.Source;
+            byte[] imageBytes = BitmapSourceToBytes(bitmapSource);
+            string base64String = Convert.ToBase64String(imageBytes);
             using (var context = new ApplicationContext())
             {
                 var pet = new Pet {
                     Name=txtName.Text,
                     Race=txtRace.Text,
-                    Age=txtAge.Text,
+                    Age=dtAge.Text,
                     Genre= genero,
                     DateEntry=dateString,
                     Status='o',
                     IdShelter=1,
-                    Description=txtDescription.Text
+                    Description=txtDescription.Text,
+                    ImgItem = base64String,
+                    Size= txtSize.Text,
+                    Hair= txtHair.Text,
+                    Numchip =txtNumChip.Text,
+                    Species = txtSpecies.Text
                 };
                 context.Pets.Add(pet);
                 context.SaveChanges();
-            MessageBox.Show("Save successful!");
+                notificationManager.Show(new NotificationContent
+                {
+                    Title = "Completado",
+                    Message = "Se ha registrado correctamente",
+                    Type = NotificationType.Success,
+
+
+                });
             }
         }
 
@@ -77,6 +117,30 @@ namespace AnimalShelter.Views.Dashboard
                     // Remueve este UserControl del Grid en la ventana principal
                     parentGrid.Children.Remove(this);
                 }
+            }
+        }
+
+        private byte[] BitmapSourceToBytes(BitmapSource bitmapSource)
+        {
+            byte[] bytes = null;
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+            using (var stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                bytes = stream.ToArray();
+            }
+            return bytes;
+        }
+
+        private void btnAddImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedImagePath = openFileDialog.FileName;
+                imgItem.Source = new BitmapImage(new Uri(selectedImagePath));
             }
         }
     }

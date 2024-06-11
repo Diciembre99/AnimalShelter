@@ -14,13 +14,15 @@
                 <Grid>
                     <Grid>
                         <Grid.Background>
-                            <ImageBrush ImageSource="/Views/Home/background.jpg"/>
+                            <ImageBrush ImageSource="/Resource/background2.jpg"/>
                         </Grid.Background>
                         <Grid.Effect>
                             <BlurEffect Radius="10"/>
                         </Grid.Effect>
                     </Grid>
-                    <materialDesign:ColorZone
+                    <Grid x:Name="HeadWindow" MouseLeftButtonDown="HeadWindow_MouseLeftButtonDown" MouseMove="HeadWindow_MouseMove">
+                        
+                        <materialDesign:ColorZone
                           Padding="16"
                           materialDesign:ElevationAssist.Elevation="Dp4"
                           ClipToBounds="False"
@@ -39,7 +41,8 @@
                         </StackPanel>
 
                     </materialDesign:ColorZone>
-                    <TextBlock x:Name="txtTitle" Text="Titulo" Foreground="White" HorizontalAlignment="Center" Margin="0 50 0 0" FontSize="30"></TextBlock>
+                    </Grid>
+                    <TextBlock x:Name="txtTitle" Text="Titulo" Foreground="White" HorizontalAlignment="Center" Margin="0 15 0 0" FontSize="30"></TextBlock>
                     <Grid x:Name="RenderPage" Margin="40 100 40 40" >
 
                     </Grid>
@@ -74,7 +77,7 @@
                                         materialDesign:ElevationAssist.Elevation="Dp8"
                                         Style="{StaticResource MaterialDesignNavigationRailTabControl}"                    Background="{x:Null}" SelectionChanged="TabControl_SelectionChanged"
                                         >
-                                        <TabItem Width="150" Tag="ItemHome" Background="#E5FFFFFF">
+                                        <TabItem Width="200" Tag="ItemHome" Background="#E5FFFFFF">
                                             <TabItem.Header>
                                                 <DockPanel>
                                                     <materialDesign:PackIcon
@@ -93,7 +96,7 @@
 
                                             </TabItem.Header>
                                         </TabItem>
-                                        <TabItem Width="150" Tag="InventaryItem" Background="#E5FFFFFF">
+                                        <TabItem Width="200" Tag="InventaryItem" Background="#E5FFFFFF">
                                             <TabItem.Header>
                                                 <DockPanel>
                                                     <materialDesign:PackIcon
@@ -112,7 +115,7 @@
 
                                             </TabItem.Header>
                                         </TabItem>
-                                        <TabItem Width="150" Tag="RecentItem" Background="#E5FFFFFF" Cursor="">
+                                        <TabItem Width="200" Tag="RecentItem" Background="#E5FFFFFF" Cursor="">
                                             <TabItem.Header>
                                                 <DockPanel>
                                                     <materialDesign:PackIcon
@@ -130,6 +133,87 @@
                                                 </DockPanel>
 
                                             </TabItem.Header>
+
+                                        </TabItem>
+                                        <TabItem Width="200" Tag="AppointmentsItem" Background="#E5FFFFFF" Cursor="">
+                                            <TabItem.Header>
+                                                <DockPanel>
+                                                    <materialDesign:PackIcon
+                                                        Width="40"
+                                                        Height="40"
+                                                        HorizontalAlignment="Left"
+                                                        Kind="HospitalBox" Foreground="White" />
+                                                    <TextBlock
+                                                        Margin="10 0 0 0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="White"
+                                                        FontSize="20"
+                                                        Text="Appointments" />
+                                                </DockPanel>
+
+                                            </TabItem.Header>
+
+                                        </TabItem>
+                                        <TabItem Width="200" Tag="Donation" Background="#E5FFFFFF" Cursor="">
+                                            <TabItem.Header>
+                                                <DockPanel>
+                                                    <materialDesign:PackIcon
+                                                        Width="40"
+                                                        Height="40"
+                                                        HorizontalAlignment="Left"
+                                                        Kind="Money" Foreground="White" />
+                                                    <TextBlock
+                                                        Margin="10 0 0 0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="White"
+                                                        FontSize="20"
+                                                        Text="Donations" />
+                                                </DockPanel>
+
+                                            </TabItem.Header>
+
+                                        </TabItem>
+                                        <TabItem x:Name="tabUsers" Width="200" Tag="Users" Background="#E5FFFFFF" Cursor="">
+                                            <TabItem.Header>
+                                                <DockPanel>
+                                                    <materialDesign:PackIcon
+                                                    Width="40"
+                                                    Height="40"
+                                                    HorizontalAlignment="Left"
+                                                    Kind="User" Foreground="White" />
+                                                    <TextBlock
+                                                    Margin="10 0 0 0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="White"
+                                                    FontSize="20"
+                                                    Text="Users" />
+                                                </DockPanel>
+
+                                            </TabItem.Header>
+
+                                        </TabItem>
+                                        <TabItem x:Name="tabLogout" Width="200" Tag="LogOut" Background="#E5FFFFFF" Cursor="" >
+                                            <TabItem.Header>
+                                                <DockPanel>
+                                                    <materialDesign:PackIcon
+                                                        Width="40"
+                                                        Height="40"
+                                                        HorizontalAlignment="Left"
+                                                        Kind="Logout" Foreground="Crimson" />
+                                                    <TextBlock
+                                                        Margin="10 0 0 0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="Crimson"
+                                                        FontSize="20"
+                                                        Text="Log Out" />
+                                                </DockPanel>
+
+                                            </TabItem.Header>
+
                                         </TabItem>
                                     </TabControl>
                                 </materialDesign:Card>

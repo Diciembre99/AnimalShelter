@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="AnimalShelter.Views.Dashboard.Appointments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AnimalShelter.Views.Dashboard"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:control="clr-namespace:AnimalShelterWPF.ViewModels"
+             xmlns:tools="clr-namespace:AnimalShelter.Tools"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1100">
+    <UserControl.DataContext>
+        <control:AppointmentViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <tools:TimeConverter x:Key="TimeConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="gridAppointment">
+        <materialDesign:Card UniformCornerRadius="20" Margin="10">
+            <materialDesign:Card.Background>
+                <SolidColorBrush Color="#FF5D5B5B" Opacity="0.3"/>
+            </materialDesign:Card.Background>
+            <ScrollViewer>
+                
+                <StackPanel>
+                <Button x:Name="btnSeeAll" Margin="20" Width="200" Content="Ver todos" Style="{StaticResource MaterialDesignOutlinedButton}" Background="White" Foreground="Black"  BorderBrush="#FFDE0000" Click="btnSeeAll_Click_1">
+                    
+                </Button>
+                <StackPanel x:Name="cards" HorizontalAlignment="Center">
+                    <ListBox ItemsSource="{Binding Appointments}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <materialDesign:PackIcon Kind="BellAlert" Width="100" VerticalAlignment="Center" Height="100" Foreground="White"></materialDesign:PackIcon>
+                                    <materialDesign:Card
+                    BorderThickness="2"
+                    BorderBrush="Black"
+                  Padding="8"
+                Margin="10"
+                    Height="150"
+                Width="500"
+                  Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                  UniformCornerRadius="10" VerticalAlignment="Center">
+                                        <StackPanel VerticalAlignment="Center">
+                                            <DockPanel>
+                                                <TextBlock
+                                Padding="10"
+                            FontSize="20"
+                            VerticalAlignment="Center"
+                            FontWeight="Black"
+                    Text="{Binding Name}"
+                    TextWrapping="Wrap" />
+                                                <TextBlock
+                            FontSize="16"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Text="{Binding Date}" Foreground="DimGray"/>
+                                            </DockPanel>
+                                            <TextBlock
+                            Text="{Binding Time, Converter={StaticResource TimeConverter}}"
+                            FontSize="15"></TextBlock>
+                                        </StackPanel>
+
+                                    </materialDesign:Card>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <Button x:Name="btnAdd"
+                        Height="55"
+                        Width="55"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="MaterialDesignFloatingActionMiniLightButton" Background="White" Foreground="Black" BorderBrush="Black" Click="btnAdd_Click" >
+                    <materialDesign:PackIcon
+  Kind="Plus" />
+                </Button>
+            </StackPanel>
+            </ScrollViewer>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

@@ -1,6 +1,8 @@
-﻿using AnimalShelter.Controllers.Data;
+﻿using AnimalShelter.Controllers;
+using AnimalShelter.Controllers.Data;
 using AnimalShelterWPF.Models;
 using Microsoft.Win32;
+using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,32 +34,55 @@ namespace AnimalShelter.Views.Dashboard
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            txtName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-            if (Validation.GetHasError(txtName) || Validation.GetHasError(txtTypeItem) || Validation.GetHasError(txtPrice))
+            var notificationManager = new NotificationManager();
+            try
             {
-                MessageBox.Show("There are validation errors.");
-                return;
-            }
-            using(var context= new ApplicationContext())
-            {
-                BitmapSource bitmapSource = (BitmapSource)imgItem.Source;
-                byte[] imageBytes = BitmapSourceToBytes(bitmapSource);
-                string base64String = Convert.ToBase64String(imageBytes);
-                var item = new Item
+                txtName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+                if (Validation.GetHasError(txtName) || Validation.GetHasError(txtTypeItem) || Validation.GetHasError(txtPrice))
                 {
-                    Name = txtName.Text,
-                    Price = float.Parse(txtPrice.Text),
-                    TypeItem = txtTypeItem.Text,
-                    Description = txtDescription.Text,
-                    Stock = (int)txtStock.Value,
-                    Status = 'D',
-                    IdShelter = 1,
-                    imgItem = base64String
-                };
-                context.Items.Add(item);
-                context.SaveChanges();
-                MessageBox.Show("Item Agregado");
+                    MessageBox.Show("There are validation errors.");
+                    return;
+                }
+                using (var context = new ApplicationContext())
+                {
+                    BitmapSource bitmapSource = (BitmapSource)imgItem.Source;
+                    byte[] imageBytes = BitmapSourceToBytes(bitmapSource);
+                    string base64String = Convert.ToBase64String(imageBytes);
+                    var item = new Item
+                    {
+                        Name = txtName.Text,
+                        Price = float.Parse(txtPrice.Text),
+                        TypeItem = txtTypeItem.Text,
+                        Description = txtDescription.Text,
+                        Stock = (int)txtStock.Value,
+                        Status = 'D',
+                        IdShelter = 1,
+                        ImgItem = base64String
+                    };
+                    context.Items.Add(item);
+                    context.SaveChanges();
+                    ItemController itemController = new ItemController();
+                    itemController.Items.Add(item);
+                    notificationManager.Show(new NotificationContent
+                    {
+                        Title = "Completado",
+                        Message = "Se ha agregado el item con exito",
+                        Type = NotificationType.Success,
+                    });
+                }
             }
+            catch (Exception ex)
+            {
+                notificationManager.Show(new NotificationContent
+                {
+                    Title = "Error",
+                    Message = "Error al completar los campos",
+                    Type = NotificationType.Error,
+
+
+                });
+            }
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -68,7 +93,7 @@ namespace AnimalShelter.Views.Dashboard
                 var parentWindow = Window.GetWindow(parentGrid);
                 if (parentWindow != null)
                 {
-                    // Remueve este UserControl del Grid en la ventana principal
+                    
                     parentGrid.Children.Remove(this);
                 }
             }

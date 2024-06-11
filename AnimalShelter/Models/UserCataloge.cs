@@ -1,4 +1,7 @@
-﻿namespace AnimalShelterWPF.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace AnimalShelterWPF.Models;
 
 public partial class UserCataloge
 {

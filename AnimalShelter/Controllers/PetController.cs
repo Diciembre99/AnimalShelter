@@ -74,6 +74,12 @@ namespace AnimalShelterWPF.ViewModels
             set => SetProperty(ref idShelter, value);
         }
 
+        private string? especie;
+        private string Especie
+        {
+            get => especie;
+            set=>SetProperty(ref especie, value);
+        }
         public ObservableCollection<Adoption> Adoptions { get; set; } = new ObservableCollection<Adoption>();
         public ObservableCollection<Appointment> Appointments { get; set; } = new ObservableCollection<Appointment>();
 
@@ -125,13 +131,18 @@ namespace AnimalShelterWPF.ViewModels
                 }
             }
         }
+        private string _imgItem;
+        public string ImagItem
+        {
+            get => _imgItem;
+            set => SetProperty(ref _imgItem, value);
+        }
         public PetViewModel()
         {
-            pets = new ObservableCollection<Pet>();
+            LoadPets();
             _filteredPets = CollectionViewSource.GetDefaultView(pets);
             _filteredPets.Filter = FilterPets;
             _searchText = string.Empty;
-            LoadPets();
         }
 
         public void LoadPets()

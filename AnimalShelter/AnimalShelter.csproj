@@ -6,17 +6,25 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>icono.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\background.jpg" />
+    <None Remove="Resource\Background2.jpg" />
     <None Remove="Views\Dashboard\dogAvatar.png" />
     <None Remove="Views\Home\background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icono.ico" />
   </ItemGroup>
 
 
 
 	<ItemGroup>
     <PackageReference Include="Accelergreat.EntityFramework.PostgreSql" Version="3.0.0-beta.2" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MaterialDesignColors" Version="3.1.0-ci626" />
     <PackageReference Include="MaterialDesignThemes" Version="5.0.1-ci626" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="3.1.0-ci626" />
@@ -29,14 +37,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0-preview.3" />
+    <PackageReference Include="unvell.ReoGrid.dll" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="Resource\background.jpg" />
+    <Resource Include="Resource\Background2.jpg" />
     <Resource Include="Views\Dashboard\dogAvatar.png" />
     <Resource Include="Views\Home\background.jpg" />
   </ItemGroup>

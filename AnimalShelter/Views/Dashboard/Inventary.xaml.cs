@@ -1,18 +1,9 @@
-﻿using AnimalShelterWPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AnimalShelter.Controllers;
+using AnimalShelterWPF.Models;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace AnimalShelter.Views.Dashboard
 {
@@ -21,12 +12,13 @@ namespace AnimalShelter.Views.Dashboard
     /// </summary>
     public partial class Inventary : UserControl
     {
+        private bool _isLoaded;
         private ItemController items = new ItemController();
-        public Inventary()
+        public Inventary(ObservableCollection<Item> i)
         {
             InitializeComponent();
             DataContext= items;
-            items.LoadItems();
+            items.Items=i;
 
         }
 
@@ -34,6 +26,21 @@ namespace AnimalShelter.Views.Dashboard
         {
             gridItem.Children.Add(new AddItem());
            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (_isLoaded && textBox != null && textBox.Name != "txtSearch")
+            {
+                items.IsSnackbarActive = true;
+                
+            }
+        }
+
+        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            _isLoaded = true;
         }
     }
 }

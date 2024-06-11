@@ -1,4 +1,7 @@
-﻿namespace AnimalShelterWPF.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace AnimalShelterWPF.Models;
 
 public partial class Donation
 {
@@ -10,7 +13,7 @@ public partial class Donation
 
     public string? Donor { get; set; }
 
-    public DateOnly DateDonation { get; set; }
+    public string? DateDonation { get; set; }
 
     public int IdShelter { get; set; }
 

@@ -1,25 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AnimalShelterWPF.Models;
 
 public partial class User
 {
-    [Key]
     public int IdUser { get; set; }
-    [Required]
+
     public string Name { get; set; } = null!;
-    [Required]
+
     public string Dni { get; set; } = null!;
 
     public string? Telephone { get; set; }
 
-    public int IdShelter { get; set; }
-
-    public int IdCataloge { get; set; }
-
     public string? Username { get; set; }
 
     public string? Password { get; set; }
+
+    public int IdCataloge { get; set; }
+
+    public int IdShelter { get; set; }
 
     public virtual Adoption? Adoption { get; set; }
 

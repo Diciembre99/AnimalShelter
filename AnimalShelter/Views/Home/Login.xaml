@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimalShelter.Views.Home"
         mc:Ignorable="d"
@@ -12,9 +13,11 @@
     <Grid>
         <materialDesign:Card Margin="10" UniformCornerRadius="15" Background="{x:Null}">
             <Grid>
+
                 <Grid>
+
                     <Grid.Background>
-                        <ImageBrush ImageSource="/Views/Home/background.jpg"/>
+                        <ImageBrush ImageSource="../../Resource/background.jpg"/>
                     </Grid.Background>
                     <Grid.Effect>
                         <BlurEffect Radius="10"/>
@@ -22,6 +25,7 @@
                 </Grid>
                 <materialDesign:Card Width="500" Height="400" Padding="20" UniformCornerRadius="20" Background="#effff3">
                     <StackPanel>
+                        
                         <StackPanel>
                             <materialDesign:PackIcon Kind="Dog" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center"></materialDesign:PackIcon>
                         </StackPanel>
@@ -76,5 +80,7 @@
                 </materialDesign:Card>
             </Grid>
         </materialDesign:Card>
+        <Button x:Name="btnExit" Style="{StaticResource MaterialDesignFlatDarkButton}"  Background="Crimson" Width="100" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Margin="30"  Foreground="White" Click="btnExit_Click">
+            <materialDesign:PackIcon Kind="Logout" Width="70" Height="80"></materialDesign:PackIcon></Button>
     </Grid>
 </Window>

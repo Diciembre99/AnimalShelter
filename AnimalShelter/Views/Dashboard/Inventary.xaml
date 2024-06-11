@@ -8,20 +8,20 @@
              xmlns:controls="clr-namespace:AnimalShelter.Controllers"
              xmlns:tools="clr-namespace:AnimalShelter.Tools"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="450" d:DesignWidth="1200">
+             d:DesignHeight="900" d:DesignWidth="1200" Loaded="UserControl_Loaded_1">
     <UserControl.DataContext>
-        <controls:AddPetViewModel/>
+        <controls:ItemController/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <tools:Base64ToImageConverter x:Key="Base64ToImageConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid x:Name="gridItem">
-            <materialDesign:Card UniformCornerRadius="20" Margin="20">
+            <materialDesign:Card UniformCornerRadius="20" Margin="10">
                 <materialDesign:Card.Background>
                     <SolidColorBrush Color="#FF5D5B5B" Opacity="0.3"/>
                 </materialDesign:Card.Background>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ScrollViewer BindingGroup="{Binding Mode=OneWay}">
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -30,6 +30,7 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Margin="20 20 10 20">
                                 <TextBox
+                                    x:Name="txtSearch"
                           FontSize="18"
                           VerticalAlignment="Center"
                           materialDesign:TextFieldAssist.HasClearButton="True"
@@ -80,7 +81,7 @@
                                                             <materialDesign:ColorZone
                                         VerticalAlignment="Stretch"
                                         Mode="PrimaryLight">
-                                                                <Image Source="{Binding ImgItem, Converter={StaticResource Base64ToImageConverter}}" Width="100" Height="100" Cursor=""/>
+                                                                <Image Source="{Binding ImgItem, Converter={StaticResource Base64ToImageConverter}}" Width="200" Height="150" Cursor=""/>
                                                             </materialDesign:ColorZone>
                                                             <StackPanel
                                         Grid.Row="1"
@@ -91,7 +92,7 @@
                                                                 <Button
                                           Margin="0,4,0,0"
                                           Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                          Content="EDIT"
+                                          Content="Edit"
                                           Style="{StaticResource MaterialDesignFlatButton}" />
                                                             </StackPanel>
                                                         </Grid>
@@ -122,45 +123,24 @@
                                                                     <TextBlock
                                                 Margin="8,0,0,0"
                                                 VerticalAlignment="Center"
-                                                Text="EDIT Item" />
+                                                Text="Edit Item" />
                                                                 </StackPanel>
                                                             </materialDesign:ColorZone>
-                                                            <Grid
-                                        Grid.Row="1"
-                                        Width="172"
-                                        Margin="0,6,0,0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Top">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition />
-                                                                    <RowDefinition />
-                                                                    <RowDefinition />
-                                                                    <RowDefinition />
-                                                                </Grid.RowDefinitions>
-                                                                <TextBox
-                                          Margin="0,12,0,0"
-                                          materialDesign:HintAssist.Hint="Name"
-                                          materialDesign:HintAssist.IsFloating="True"
-                                          Text="{Binding Name}" />
-                                                                <TextBox
-                                          Grid.Row="1"
-                                          Margin="0,12,0,0"
-                                          materialDesign:HintAssist.Hint="Race"
-                                          materialDesign:HintAssist.IsFloating="True"
-                                          Text="{Binding Type}" />
-                                                                <StackPanel
-                                          Grid.Row="2"
-                                          Margin="0,12,0,0"
-                                          HorizontalAlignment="Right"
-                                          Orientation="Horizontal">
-                                                                    <TextBlock
-                                                VerticalAlignment="Center"
-                                                Text="Adopte" />
-                                                                    <ToggleButton
-                                                Margin="8,0,0,0" />
-                                                                </StackPanel>
+                                                            <StackPanel Margin="0 35 0 0">
+                                                                <DockPanel LastChildFill="True">
+                                                                    <TextBox Margin="10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Stock"
+                                                                         Text="{Binding Stock}" TextChanged="TextBox_TextChanged" ></TextBox>
+                                                                    <TextBox Margin="10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Price"
+                                                                         Text="{Binding Price}" TextChanged="TextBox_TextChanged" ></TextBox>
+                                                                </DockPanel>
+                                                                <TextBlock Text="Description" Margin="5"></TextBlock>
+                                                                <TextBox Margin="5" Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                                                         Text="{Binding Description}"  TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" TextChanged="TextBox_TextChanged" ></TextBox>
+                                                                <Button Margin="10" Style="{StaticResource MaterialDesignFlatMidBgButton}" Content="Eliminar" Background="Crimson"
+                                                                        Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                                        CommandParameter="{Binding}" />
 
-                                                            </Grid>
+                                                            </StackPanel>
                                                         </Grid>
                                                     </materialDesign:Flipper.BackContent>
                                                 </materialDesign:Flipper>
@@ -169,10 +149,14 @@
                                     </ListBox>
                                 </StackPanel>
                             </DockPanel>
+                            <!-- long hand form for setting the message -->
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </materialDesign:Card>
+            <materialDesign:Snackbar  x:Name="SnackbarTwo" IsActive="{Binding IsSnackbarActive}" Margin="-40" VerticalAlignment="Bottom">
+                <materialDesign:SnackbarMessage ActionContent="Save" Content="Actualizar cambios?"  ActionCommand="{Binding SaveCommand}"/>
+                            </materialDesign:Snackbar>
 
         </Grid>
     </Grid>

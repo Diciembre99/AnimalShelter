@@ -1,87 +1,94 @@
 ﻿using AnimalShelter.Controllers;
 using AnimalShelter.Controllers.Data;
 using AnimalShelterWPF.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace AnimalShelterWPF.ViewModels
+namespace AnimalShelter.Controllers
 {
     public class ItemController : ViewModelBase
     {
+        private ObservableCollection<Item> items;
         private int idItem;
+        private string? name;
+        private int? stock;
+        private string? typeItem;
+        private string imgItem;
+        private string? animalType;
+        private int? idShelter;
+        private char? status;
+        private float? price;
+        private Shelter? idShelterNavigation;
+        private ICollectionView _filteredItems;
+        private string? description;
+        private string _searchText;
+        private bool _isSnackbarActive;
+
         public int IdItem
         {
             get => idItem;
             set => SetProperty(ref idItem, value);
         }
 
-        private string? name;
         public string? Name
         {
             get => name;
             set => SetProperty(ref name, value);
         }
 
-        private int? stock;
         public int? Stock
         {
             get => stock;
             set => SetProperty(ref stock, value);
         }
 
-        private string? typeItem;
         public string? TypeItem
         {
             get => typeItem;
             set => SetProperty(ref typeItem, value);
         }
 
-        private string? animalType;
         public string? AnimalType
         {
             get => animalType;
             set => SetProperty(ref animalType, value);
         }
 
-        private int? idShelter;
         public int? IdShelter
         {
             get => idShelter;
             set => SetProperty(ref idShelter, value);
         }
 
-        private char? status;
         public char? Status
         {
             get => status;
             set => SetProperty(ref status, value);
         }
 
-        private float? price;
         public float? Price
         {
             get => price;
             set => SetProperty(ref price, value);
         }
 
-        private string? description;
         public string? Description
         {
             get => description;
             set => SetProperty(ref description, value);
         }
 
-        private Shelter? idShelterNavigation;
         public Shelter? IdShelterNavigation
         {
             get => idShelterNavigation;
             set => SetProperty(ref idShelterNavigation, value);
         }
 
-        private ObservableCollection<Item> items;
         public ObservableCollection<Item> Items
         {
             get => items;
@@ -95,17 +102,14 @@ namespace AnimalShelterWPF.ViewModels
             }
         }
 
-        private string imgItem;
         public string ImagItem
         {
             get => imgItem;
             set => SetProperty(ref imgItem, value);
         }
 
-        private ICollectionView _filteredItems;
         public ICollectionView FilteredItems => _filteredItems;
 
-        private string _searchText;
         public string SearchText
         {
             get => _searchText;
@@ -118,27 +122,51 @@ namespace AnimalShelterWPF.ViewModels
             }
         }
 
-        public ICommand SearchCommand { get; }
-
+        public Visibility _isProgressBarVisible;
+        public Visibility IsProgressBarVisible
+        {
+            get => _isProgressBarVisible;
+            set => SetProperty(ref  _isProgressBarVisible, value);
+        }
         public ItemController()
         {
             items = new ObservableCollection<Item>();
             _filteredItems = CollectionViewSource.GetDefaultView(items);
             _filteredItems.Filter = FilterItems;
             _searchText = string.Empty;
-            LoadItems();
             SearchCommand = new RelayCommand(ExecuteSearch);
-        }
+            SaveCommand = new RelayCommand(_ => SaveItem());
+            DeleteItemCommand = new RelayCommand(ExecuteDeleteItem);
 
-        public void LoadItems()
+        }
+        public ICommand SearchCommand { get; }
+        public ICommand SaveCommand { get; }
+        public ICommand DeleteItemCommand { get; private set; }
+
+
+
+        public async Task<bool> LoadItems()
         {
-            using (var context = new ApplicationContext())
+            try
             {
-                var itemList = context.Items.ToList();
-                Items = new ObservableCollection<Item>(itemList);
+                using (var context = new ApplicationContext())
+                {
+                    List<Item>itemList = await context.Items.ToListAsync();
+                    Items = new ObservableCollection<Item>(itemList);
+                    return true;
+                }
             }
-        }
+            catch (Exception) {
+                return false;
+            }
 
+
+        }
+        public bool IsSnackbarActive
+        {
+            get => _isSnackbarActive;
+            set => SetProperty(ref _isSnackbarActive, value);
+        }
         private void ExecuteSearch(object parameter)
         {
             _filteredItems.Refresh();
@@ -152,9 +180,43 @@ namespace AnimalShelterWPF.ViewModels
             }
             return false;
         }
-    }
+        private void SaveItem()
+        {
+            try
+            {
+                using (var context = new ApplicationContext())
+                {
+                    foreach (Item item in Items)
+                    {
+                        context.Items.Update(item);
+                    }
+                    context.SaveChanges();
 
-    public class RelayCommand : ICommand
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+                    IsSnackbarActive = false;
+        }
+
+        private void ExecuteDeleteItem(object parameter)
+        {
+            if (parameter is Item itemToDelete)
+            {
+                using (var context = new ApplicationContext())
+                {
+                    context.Items.Remove(itemToDelete);
+                    context.SaveChanges(); 
+                }
+                LoadItems(); 
+            }
+        }
+    }
+        public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;

@@ -29,9 +29,9 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
                                     Margin="10"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryLightButton}"
-  ToolTip="MaterialDesignFloatingActionMiniSecondaryLightButton" Click="btnAddImage_Click">
+                                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                      Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryLightButton}"
+                                      ToolTip="MaterialDesignFloatingActionMiniSecondaryLightButton" Click="btnAddImage_Click">
                                     <materialDesign:PackIcon
                                     Kind="PencilAdd" />
                                 </Button>
